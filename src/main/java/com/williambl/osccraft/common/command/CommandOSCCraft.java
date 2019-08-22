@@ -1,5 +1,7 @@
 package com.williambl.osccraft.common.command;
 
+import com.illposed.osc.transport.udp.OSCPortOut;
+import com.williambl.osccraft.OSCCraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -8,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -56,12 +59,20 @@ public class CommandOSCCraft extends CommandBase {
                 return;
             }
 
-            sender.sendMessage(new TextComponentString("Unable to connect."));
+            try {
+                OSCCraft.port = new OSCPortOut(address);
+            } catch (IOException e) {
+                e.printStackTrace();
+                sender.sendMessage(new TextComponentString("Unable to connect."));
+            }
+
+            sender.sendMessage(new TextComponentString("Connected."));
 
             return;
         }
 
         if (subCommand.equals("disconnect")) {
+            OSCCraft.port = null;
             return;
         }
 

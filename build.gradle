@@ -64,7 +64,7 @@ configurations {
 
 
 dependencies {
-    embed 'com.illposed.osc:javaosc:0.6'
+    embed group: 'com.illposed.osc', name: 'javaosc-core', version: '0.6'
 }
 
 
