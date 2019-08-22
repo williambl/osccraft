@@ -1,7 +1,5 @@
-package com.williambl.kerbalcraft.common.command;
+package com.williambl.osccraft.common.command;
 
-import krpc.client.RPCException;
-import krpc.client.services.KRPC;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -15,14 +13,14 @@ import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandKerbalCraft extends CommandBase {
+public class CommandOSCCraft extends CommandBase {
 
-    String commandName = "kerbalcraft";
-    String usage = "/kerbalcraft <connect|disconnect> [host]";
+    String commandName = "osccraft";
+    String usage = "/osccraft <connect|disconnect> [host]";
 
     String[] subCommands = new String[]{"connect", "disconnect"};
 
-    public CommandKerbalCraft() {
+    public CommandOSCCraft() {
         super();
     }
 
@@ -58,28 +56,15 @@ public class CommandKerbalCraft extends CommandBase {
                 return;
             }
 
-            KRPC krpc = com.williambl.kerbalcraft.OSCCraft.connectionManager.connect(address);
-            if (krpc != null) {
-                try {
-                    sender.sendMessage(new TextComponentString("Connected to" + args[1] + " running kRPC version " + krpc.getStatus().getVersion()));
-                    return;
-                } catch (RPCException e) {
-                    e.printStackTrace();
-                    sender.sendMessage(new TextComponentString("Connected, but something went wrong conencting again to tell you that it was connected. Try reconnecting."));
-                }
-            }
-
             sender.sendMessage(new TextComponentString("Unable to connect."));
 
             return;
         }
 
         if (subCommand.equals("disconnect")) {
-            com.williambl.kerbalcraft.OSCCraft.connectionManager.disconnect();
             return;
         }
 
-        sender.sendMessage(new TextComponentString(usage));
     }
 
     @Override

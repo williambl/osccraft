@@ -1,16 +1,16 @@
 [
 {
-  "modid": "kerbalcraft",
-  "name": "KerbalCraft",
-  "description": "Control Kerbal Space Program with redstone",
+  "modid": "osccraft",
+  "name": "OSCCraft",
+  "description": "Control OSC-controlled things with commands",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://minecraft.curseforge.com/projects/kerbal-craft",
-  "updateUrl": "https://raw.githubusercontent.com/williambl/kerbalcraft/master/update.json",
+  "url": "https://minecraft.curseforge.com/projects/osccraft",
+  "updateUrl": "",
   "authorList": [
     "Willbl3pic"
   ],
-  "credits": "djungelorm, for creating kRPC",
+  "credits": "Chandrasekhar Ramakrishnan, for creating Java OSC",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
