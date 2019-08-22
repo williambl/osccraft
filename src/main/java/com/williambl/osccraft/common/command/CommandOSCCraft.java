@@ -1,5 +1,6 @@
 package com.williambl.osccraft.common.command;
 
+import com.illposed.osc.OSCMessage;
 import com.illposed.osc.transport.udp.OSCPortOut;
 import com.williambl.osccraft.OSCCraft;
 import net.minecraft.command.CommandBase;
@@ -15,6 +16,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CommandOSCCraft extends CommandBase {
 
@@ -74,6 +76,48 @@ public class CommandOSCCraft extends CommandBase {
         if (subCommand.equals("disconnect")) {
             OSCCraft.port = null;
             return;
+        }
+
+        if (subCommand.equals("send")) {
+            List<Object> msgArgs = new java.util.ArrayList<>(Collections.emptyList());
+            String address = "/";
+            for (int i = 1; i < args.length; i++) {
+                String arg = args[i];
+                if (i == 1)
+                    address = arg;
+                else {
+                    Optional<Float> argFloat = new Optional<>();
+                    Optional<Integer> argInt = new Optional<>();
+                    Optional<Boolean> argBool = new Optional<>();
+
+                    try {
+                        argFloat = Optional.of(Float.parseFloat(arg));
+                        argInt = Optional.of(Integer.parseInt(arg));
+                    } catch (NumberFormatException e) {
+                        if (arg.equalsIgnoreCase("true"))
+                            argBool = Optional.of(true);
+                        else if (arg.equalsIgnoreCase("false"))
+                            argBool = Optional.of(false);
+                    }
+
+                    if (argFloat.isPresent())
+                        msgArgs.add(argFloat.get());
+                    else if (argInt.isPresent())
+                        msgArgs.add(argInt.get());
+                    else if (argBool.isPresent())
+                        msgArgs.add(argBool.get());
+                    else
+                        msgArgs.add(arg);
+                }
+            }
+
+            OSCMessage msg = new OSCMessage(address, msgArgs);
+
+            try {
+                OSCCraft.port.send(msg);
+            } catch (Exception e) {
+                sender.sendMessage(new TextComponentString("Failed to send message"));
+            }
         }
 
     }
