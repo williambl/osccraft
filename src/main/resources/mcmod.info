@@ -1,0 +1,18 @@
+[
+{
+  "modid": "kerbalcraft",
+  "name": "KerbalCraft",
+  "description": "Control Kerbal Space Program with redstone",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/kerbal-craft",
+  "updateUrl": "https://raw.githubusercontent.com/williambl/kerbalcraft/master/update.json",
+  "authorList": [
+    "Willbl3pic"
+  ],
+  "credits": "djungelorm, for creating kRPC",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
